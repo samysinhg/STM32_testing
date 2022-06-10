@@ -164,6 +164,13 @@ typedef struct{
 #define SPI4_PCLK_EN()      ( RCC->APB2ENR |=(1 << 15))
 
 
+//some macros
+#define ENABLE           1
+#define DISABLE          0
+#define SET              ENABLE
+#define RESET            DISABLE
+#define GPIO_PIN_SET     SET
+#define GPIO_PIN_RESET   RESET
 
 
 #endif /* INC_STM32F303XX_H_ */
