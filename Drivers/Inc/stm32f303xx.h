@@ -105,8 +105,7 @@ typedef struct {
 		_vo	uint32_t   ODR;
 		_vo	uint32_t   BSRR;
 		_vo	uint32_t   LCKR;
-		_vo	uint32_t   AFRL;
-		_vo	uint32_t   AFRH;
+		_vo	uint32_t   AFR[2];
 		_vo uint32_t  BRR;
 
 }GPIO_RegDef_t;
@@ -135,7 +134,7 @@ typedef struct{
 #define  GPIOF     ((GPIO_RegDef_t *)GPIOF_BASEADDR)
 #define  GPIOG     ((GPIO_RegDef_t *)GPIOG_BASEADDR)
 #define  GPIOH     ((GPIO_RegDef_t *)GPIOH_BASEADDR)
-#define   RCC      ((GPIO_RegDef_t *)RCC_BASEADDR)
+#define   RCC      ((RCC_RegDef_t *)RCC_BASEADDR)
 
 
 //Clock Enable Macros for GPIOx Peripherals
@@ -148,6 +147,17 @@ typedef struct{
 #define GPIOF_PCLK_EN()     (RCC->AHBENR  |= (1<<22))
 #define GPIOG_PCLK_EN()     (RCC->AHBENR  |= (1<<23))
 #define GPIOH_PCLK_EN()     (RCC->AHBENR  |= (1<<16))
+
+//Clock Disable Macros for GPIOx Peripherals
+
+#define GPIOA_PCLK_DI()    (RCC->AHBRSTR  |= (1<<17))
+#define GPIOB_PCLK_DI()     (RCC->AHBRSTR  |= (1<<18))
+#define GPIOC_PCLK_DI()     (RCC->AHBRSTR  |= (1<<19))
+#define GPIOD_PCLK_DI()     (RCC->AHBRSTR  |= (1<<20))
+#define GPIOE_PCLK_DI()     (RCC->AHBRSTR  |= (1<<21))
+#define GPIOF_PCLK_DI()     (RCC->AHBRSTR  |= (1<<22))
+#define GPIOG_PCLK_DI()     (RCC->AHBRSTR  |= (1<<23))
+#define GPIOH_PCLK_DI()     (RCC->AHBRSTR  |= (1<<16))
 
 
 //Clock Enable Macros for I2Cx Peripherals
@@ -162,6 +172,7 @@ typedef struct{
 #define SPI2_PCLK_EN()      ( RCC->APB1ENR |=(1 << 14))
 #define SPI3_PCLK_EN()      ( RCC->APB1ENR |=(1 << 15))
 #define SPI4_PCLK_EN()      ( RCC->APB2ENR |=(1 << 15))
+
 
 
 //some macros
@@ -182,5 +193,14 @@ typedef struct{
 #define GPIOF_REG_RESET()           do{(RCC->AHBRSTR  |= (1<<22));   (RCC->AHBRSTR  &= ~(1<<22));} while(0)
 #define GPIOG_REG_RESET()           do{(RCC->AHBRSTR  |= (1<<23));   (RCC->AHBRSTR  &= ~(1<<23));} while(0)
 #define GPIOH_REG_RESET()           do{(RCC->AHBRSTR  |= (1<<16));   (RCC->AHBRSTR  &= ~(1<<16));} while(0)
+
+
+//gpio modes
+
+#define  GPIO_MODE_IN         0
+#define  GPIO_MODE_OUT        1
+#define  GPIO_MODE_AF         2
+#define  GPIO_MODE_ANALOG     3
+
 
 #endif /* INC_STM32F303XX_H_ */
